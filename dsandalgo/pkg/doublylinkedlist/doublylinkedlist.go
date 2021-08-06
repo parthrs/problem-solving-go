@@ -46,14 +46,14 @@ func (l *DoublyLinkedList) AddNodeHead(val int32) {
 func (l *DoublyLinkedList) AddNodeTail(val int32) {
 	n := NewDoublyLinkedNode(val)
 	n.Next = nil
-	n.Previous = n.Tail
+	n.Previous = l.Tail
 
 	if l.Tail == nil {
 		l.Head = n
 	} else {
 		l.Tail.Next = n
 	}
-	n.Tail = n
+	l.Tail = n
 }
 
 func (l *DoublyLinkedList) RemoveNodeHead() {
@@ -86,17 +86,16 @@ func (l *DoublyLinkedList) RemoveNode(val int32) {
 		return
 	}
 
+	if l.Tail.Value == val {
+		l.RemoveNodeTail()
+		return
+	}
+
 	n := l.Head.Next
 	// Other cases
-	for n != nil {
-		if n == l.Tail {
-			l.RemoveNodeTail()
-		}
-		if n.Value == val {
-			n.Previous.Next = n.Next
-			n.Next.Previous = n.Previous
-			break
-		}
+	for n.Value != val {
 		n = n.Next
 	}
+	n.Previous.Next = n.Next
+	n.Next.Previous = n.Previous
 }

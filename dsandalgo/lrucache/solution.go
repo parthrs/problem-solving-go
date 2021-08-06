@@ -54,8 +54,8 @@ func (c *LRUCache) get(k int32) int32 {
 }
 
 func main() {
-	c := NewLRUCache(3)
-	c.put(1, 100)
+	c := NewLRUCache(2)
+	/*c.put(1, 100)
 	c.put(2, 200)
 	c.put(3, 300)
 	fmt.Println(c.keyMap)
