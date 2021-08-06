@@ -30,14 +30,17 @@ func NewDoublyLinkedList() *DoublyLinkedList {
 
 func (l *DoublyLinkedList) AddNodeHead(val int32) {
 	n := NewDoublyLinkedNode(val)
+	n.Next = l.Head
+	n.Previous = nil
+
 	// Check if list is empty
 	if l.Head == nil {
-		l.Head, l.Tail = n, n
+		l.Tail = n
 	} else {
-		n.Next = l.Head
 		l.Head.Previous = n
-		l.Head = n
 	}
+
+	l.Head = n
 }
 
 func (l *DoublyLinkedList) AddNodeTail(val int32) {
