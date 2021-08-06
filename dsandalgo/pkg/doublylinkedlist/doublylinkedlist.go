@@ -45,13 +45,15 @@ func (l *DoublyLinkedList) AddNodeHead(val int32) {
 
 func (l *DoublyLinkedList) AddNodeTail(val int32) {
 	n := NewDoublyLinkedNode(val)
+	n.Next = nil
+	n.Previous = n.Tail
+
 	if l.Tail == nil {
-		l.Tail, l.Head = n, n
+		l.Head = n
 	} else {
-		n.Previous = l.Tail
 		l.Tail.Next = n
-		l.Tail = n
 	}
+	n.Tail = n
 }
 
 func (l *DoublyLinkedList) RemoveNodeHead() {
