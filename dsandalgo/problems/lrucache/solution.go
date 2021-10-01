@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	dll "github.com/parthrs/LetsGo/dsandalgo/pkg/doublylinkedlist"
 )
 
@@ -53,9 +51,10 @@ func (c *LRUCache) get(k int32) int32 {
 	return -1
 }
 
+/*
 func main() {
 	c := NewLRUCache(2)
-	/*c.put(1, 100)
+	c.put(1, 100)
 	c.put(2, 200)
 	c.put(3, 300)
 	fmt.Println(c.keyMap)
@@ -74,3 +73,4 @@ func main() {
 	fmt.Println(c.keyList.Tail.Previous.Previous.Value)
 	fmt.Println(c.keyMap)
 }
+*/
