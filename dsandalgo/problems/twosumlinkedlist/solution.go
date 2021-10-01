@@ -15,43 +15,47 @@ import (
 	sll "github.com/parthrs/LetsGo/dsandalgo/pkg/singlylinkedlist"
 )
 
-func linkedListToInt(l *sll.SinglyNode) int {
-	sum := 0
-	decimalMultiplier := 1
+func AddTwoNumbers(m *sll.SinglyNode, n *sll.SinglyNode) *sll.SinglyNode {
+	carryForward := 0
+	var prevNode *sll.SinglyNode
+	var headNode *sll.SinglyNode
 
-	if l.Value == 0 {
-		return 0
-	}
+	for m != nil || n != nil {
+		a := 0
+		b := 0
 
-	for n := l; n != nil; {
-		sum += (decimalMultiplier * n.Value)
-		decimalMultiplier *= 10
-		n = n.Next
-	}
-	return sum
-}
+		if m != nil {
+			a = m.Value
+		}
 
-func intToList(i int) *sll.SinglyNode {
-	var prevNode *sll.SinglyNode = nil
-	var headNode *sll.SinglyNode = nil
+		if n != nil {
+			b = n.Value
+		}
 
-	if i == 0 {
-		return sll.NewSinglyNode(i)
-	}
-
-	for i > 0 {
-		_n := sll.NewSinglyNode(i % 10)
+		summation := a + b + carryForward
+		carryForward = summation / 10
+		if summation >= 10 {
+			summation %= 10
+		}
+		_n := sll.NewSinglyNode(summation)
 		if prevNode == nil {
 			headNode = _n
 		} else {
 			prevNode.Next = _n
 		}
-		prevNode = _n
-		i = i / 10
-	}
-	return headNode
-}
 
-func AddTwoNumbers(m *sll.SinglyNode, n *sll.SinglyNode) *sll.SinglyNode {
-	return intToList(linkedListToInt(m) + linkedListToInt(n))
+		prevNode = _n
+		if m != nil {
+			m = m.Next
+		}
+		if n != nil {
+			n = n.Next
+		}
+	}
+
+	if carryForward != 0 {
+		prevNode.Next = sll.NewSinglyNode(1)
+	}
+
+	return headNode
 }
