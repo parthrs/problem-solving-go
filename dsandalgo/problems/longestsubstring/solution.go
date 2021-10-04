@@ -35,6 +35,7 @@ func LengthOfLongestSubstring(s string) int {
 		if _, lookup := seenMap[string(i)]; lookup {
 			if prevChar == string(i) {
 				subStr = ""
+				seenMap = make(map[string]int)
 			} else {
 				subStr = subStr[getPos(string(i), subStr)+1:]
 			}
