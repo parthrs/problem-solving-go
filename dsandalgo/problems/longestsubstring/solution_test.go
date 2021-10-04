@@ -23,6 +23,12 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 		t.Errorf("%d != %d for %s\n", result, out, inp)
 	}
 
+	inp = "pwwkep"
+	out = 4
+	if result := LengthOfLongestSubstring(inp); result != out {
+		t.Errorf("%d != %d for %s\n", result, out, inp)
+	}
+
 	inp = ""
 	out = 0
 	if result := LengthOfLongestSubstring(inp); result != out {
