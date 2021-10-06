@@ -34,6 +34,30 @@ func TestLongestPalindrome(t *testing.T) {
 	if res := LongestPalindrome(i); res != o {
 		t.Errorf("Expected %s got %s\n", o, res)
 	}
+
+	i = "ccc"
+	o = "ccc"
+	if res := LongestPalindrome(i); res != o {
+		t.Errorf("Expected %s got %s\n", o, res)
+	}
+
+	i = "dddd"
+	o = "dddd"
+	if res := LongestPalindrome(i); res != o {
+		t.Errorf("Expected %s got %s\n", o, res)
+	}
+
+	i = "abba"
+	o = "abba"
+	if res := LongestPalindrome(i); res != o {
+		t.Errorf("Expected %s got %s\n", o, res)
+	}
+
+	i = "cbbd"
+	o = "bb"
+	if res := LongestPalindrome(i); res != o {
+		t.Errorf("Expected %s got %s\n", o, res)
+	}
 }
 
 /*

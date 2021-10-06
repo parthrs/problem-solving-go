@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 /*
 Given a string s, return the longest palindromic substring in s.
@@ -56,7 +59,11 @@ func LongestPalindrome(s string) string {
 
 		if string(s[count]) == string(s[count-1]) {
 			// Repeating characters
-			currentPalindrome = expandingPalindromeSearch(count-1, count, s)
+			if count%2 == 0 {
+				currentPalindrome = expandingPalindromeSearch(count-1, count-1, s)
+			} else {
+				currentPalindrome = expandingPalindromeSearch(int(math.Floor(float64(count)/2.0)), int(math.Ceil(float64(count)/2.0)), s)
+			}
 		} else if count >= 2 && string(s[count]) == string(s[count-2]) {
 			// Mirror image of the word
 			currentPalindrome = expandingPalindromeSearch(count-1, count-1, s)
