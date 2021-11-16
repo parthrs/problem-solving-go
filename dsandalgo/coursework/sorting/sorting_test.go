@@ -40,3 +40,15 @@ func TestInsertionSort(t *testing.T) {
 		t.Errorf("InsertionSort test failed (got %v\n)", res)
 	}
 }
+
+func TestMergeSort(t *testing.T) {
+	if res := MergeSort([]int{8, 3, 2, 1, 5, 7, 7, 0}); !reflect.DeepEqual(res, []int{0, 1, 2, 3, 5, 7, 7, 8}) {
+		t.Errorf("MergeSort test failed (got %v\n)", res)
+	}
+	if res := MergeSort([]int{0, 1, 2, 3, 5, 7, 7, 8}); !reflect.DeepEqual(res, []int{0, 1, 2, 3, 5, 7, 7, 8}) {
+		t.Errorf("MergeSort test failed (got %v\n)", res)
+	}
+	if res := MergeSort([]int{7, 9, 100, 11, -5, -7, 0, 10}); !reflect.DeepEqual(res, []int{-7, -5, 0, 7, 9, 10, 11, 100}) {
+		t.Errorf("MergeSort test failed (got %v\n)", res)
+	}
+}
