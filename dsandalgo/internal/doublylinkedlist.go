@@ -1,4 +1,4 @@
-package doublylinkedlist
+package internal
 
 type DoublyLinkedNode struct {
 	Previous *DoublyLinkedNode

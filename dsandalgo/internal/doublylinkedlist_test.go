@@ -1,4 +1,4 @@
-package doublylinkedlist
+package internal
 
 import "testing"
 

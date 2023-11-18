@@ -1,4 +1,4 @@
-package dequeue
+package internal
 
 import "testing"
 

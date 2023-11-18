@@ -1,4 +1,4 @@
-package dequeue
+package internal
 
 type Dequeue struct {
 	length   int32

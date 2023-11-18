@@ -1,4 +1,4 @@
-package singlylinkedlist
+package internal
 
 type SinglyNode struct {
 	Value int
