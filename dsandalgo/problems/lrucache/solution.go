@@ -1,7 +1,7 @@
-package main
+package lrucache
 
 import (
-	dll "github.com/parthrs/LetsGo/dsandalgo/pkg/doublylinkedlist"
+	dll "github.com/parthrs/LetsGo/dsandalgo/pkg"
 )
 
 /*

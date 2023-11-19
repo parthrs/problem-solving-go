@@ -12,7 +12,7 @@ Explanation: 342 + 465 = 807
 */
 
 import (
-	sll "github.com/parthrs/LetsGo/dsandalgo/pkg/singlylinkedlist"
+	sll "github.com/parthrs/LetsGo/dsandalgo/pkg"
 )
 
 func AddTwoNumbers(m *sll.SinglyNode, n *sll.SinglyNode) *sll.SinglyNode {

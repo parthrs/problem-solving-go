@@ -1,4 +1,4 @@
-package internal
+package pkg
 
 /*
 	Go inherently does not have a set data structure
