@@ -1,4 +1,4 @@
-package slidingwindow
+package twopointer
 
 import (
 	"testing"
