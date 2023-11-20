@@ -11,21 +11,14 @@ Output: [2,1,3,2,4,0,0,0]
 */
 
 func MoveZerosToEnd(nums []int) []int {
-	left, right := 0, 0
-	for right < len(nums) {
-		for nums[right] == 0 {
-			right++
-			if right >= len(nums) {
-				return nums
+	index := 0
+	for finder := range nums {
+		if nums[finder] != 0 {
+			if index != finder {
+				nums[index], nums[finder] = nums[finder], nums[index]
 			}
+			index++
 		}
-		if left != right {
-			t := nums[left]
-			nums[left] = nums[right]
-			nums[right] = t
-		}
-		left++
-		right++
 	}
 	return nums
 }
