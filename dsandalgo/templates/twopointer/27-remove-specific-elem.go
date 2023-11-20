@@ -48,14 +48,14 @@ func RemoveSpecificElem(nums []int, k int) (length int) {
 	if len(nums) < 1 {
 		return 0
 	}
-	left := 0
-	for right := range nums {
-		if nums[right] != k {
-			if left != right {
-				nums[left], nums[right] = nums[right], nums[left]
+	index := 0
+	for finder := range nums {
+		if nums[finder] != k {
+			if index != finder {
+				nums[finder], nums[index] = nums[index], nums[finder]
 			}
-			left++
+			index++
 		}
 	}
-	return left
+	return index
 }

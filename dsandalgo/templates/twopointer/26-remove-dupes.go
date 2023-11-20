@@ -11,20 +11,23 @@ Len = 2
 Given nums = [0,0,1,1,1,2,2,3,3,4]
 Len = 5
 
+Given nums = [0,1,2,2,3,3,4]
+Len = 5
+
 */
 
-func DeDuplicateArray(nums []int) (length int) {
-	left, right := 0, 0
-	for right < len(nums) {
-		for nums[left] == nums[right] {
-			right++
-			if right >= len(nums) {
-				return
-			}
-		}
-		left++
-		nums[left] = nums[right]
-		length = left + 1
+func DeDuplicateArray(nums []int) int {
+	if len(nums) < 1 {
+		return 0
 	}
-	return
+	index := 0                 // Track the "current elem", or where to insert the new elem that finder finds
+	for finder := range nums { // Find a new elem, thats different from what index is pointing
+		if nums[index] == nums[finder] {
+			continue
+		}
+		// Finder found a new elem, only then we arrive here
+		index++
+		nums[index] = nums[finder] // I know this overwrites, haven't found a solution that doesn't
+	}
+	return index + 1
 }
