@@ -2,10 +2,11 @@ package pkg
 
 /*
 	Go inherently does not have a set data structure
+	In this implementation,
 	1. Order is not maintained
 	2. The type constraint is comparable as that is a
-	   underlying map constraint (Map can't lookup elem if
-		 not comparable)
+	   underlying map constraint (Map can't lookup elem i.e.
+		 use as a key if not comparable)
 */
 
 type Set[T comparable] interface {
