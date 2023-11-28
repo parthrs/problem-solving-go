@@ -7,6 +7,13 @@ package pkg
 	2. The type constraint is comparable as that is a
 	   underlying map constraint (Map can't lookup elem i.e.
 		 use as a key if not comparable)
+
+	Notes: In any func definition - if T is referenced
+	       its type (comparable) must be declared at that definition
+				 level. For instance in func NewSetDS. This makes sense since
+				 the func cannot know what the type constraint is..
+				 But the methods on the defined struct can know based on the
+				 struct definition. So no need to specify constraint here.
 */
 
 type Set[T comparable] interface {
@@ -31,10 +38,9 @@ func (s *SetDS[T]) Contains(elem T) (found bool) {
 }
 
 func (s *SetDS[T]) Add(elem T) {
-	if _, found := s.Store[elem]; found {
-		return
+	if _, found := s.Store[elem]; !found {
+		s.Store[elem] = true
 	}
-	s.Store[elem] = true
 }
 
 func (s *SetDS[T]) Remove(elem T) (found bool) {
