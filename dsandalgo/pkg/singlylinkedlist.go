@@ -1,12 +1,12 @@
 package pkg
 
-type SinglyNode struct {
-	Value int
-	Next  *SinglyNode
+type SinglyNode[T any] struct {
+	Value T
+	Next  *SinglyNode[T]
 }
 
-func NewSinglyNode(val int) *SinglyNode {
-	return &SinglyNode{
+func NewSinglyNode[T any](val T) *SinglyNode[T] {
+	return &SinglyNode[T]{
 		Value: val,
 		Next:  nil,
 	}
