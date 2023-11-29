@@ -3,7 +3,7 @@ package pkg
 import "testing"
 
 func TestDoublyLinkedNode(t *testing.T) {
-	n := NewDoublyLinkedNode(5)
+	n := NewDoublyLinkedNode[int32](int32(5))
 	if n.Next != nil && n.Previous != nil {
 		t.Errorf("Newly created node has non-nil pointers\n")
 	}
@@ -13,7 +13,7 @@ func TestDoublyLinkedNode(t *testing.T) {
 }
 
 func TestDoublyLinkedList(t *testing.T) {
-	l := NewDoublyLinkedList()
+	l := NewDoublyLinkedList[int]()
 	l.AddNodeHead(1)
 	l.AddNodeHead(0)
 	l.AddNodeTail(2)
