@@ -28,4 +28,11 @@ func main() {
 	fmt.Println(s.Contains([2]int{23, 44}))
 	s.Add([2]int{23, 44})
 	fmt.Println(s.Contains([2]int{23, 44}))
+	k := map[string]int{
+		"one":         1,
+		"one-hundred": 100,
+		"two":         2,
+		"ninety-nine": 99,
+	}
+	basics.PrintMapOnSortedValues(k)
 }
