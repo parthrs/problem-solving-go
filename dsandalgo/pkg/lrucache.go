@@ -1,9 +1,5 @@
 package pkg
 
-import (
-	dll "github.com/parthrs/LetsGo/dsandalgo/pkg"
-)
-
 /*
 Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
 
@@ -21,14 +17,14 @@ The functions get and put must each run in O(1) average time complexity.
 
 type LRUCache struct {
 	keyMap   map[int32]int32
-	keyList  *dll.DoublyLinkedList
+	keyList  *DoublyLinkedList[int32]
 	capacity int32
 }
 
 func NewLRUCache(size int32) *LRUCache {
 	return &LRUCache{
 		keyMap:   map[int32]int32{},
-		keyList:  dll.NewDoublyLinkedList(),
+		keyList:  NewDoublyLinkedList[int32](),
 		capacity: size,
 	}
 }
@@ -50,27 +46,3 @@ func (c *LRUCache) get(k int32) int32 {
 	}
 	return -1
 }
-
-/*
-func main() {
-	c := NewLRUCache(2)
-	c.put(1, 100)
-	c.put(2, 200)
-	c.put(3, 300)
-	fmt.Println(c.keyMap)
-	fmt.Println(c.keyList.Head.Value)
-	fmt.Println(c.keyList.Head.Next.Value)
-	fmt.Println(c.keyList.Head.Next.Next.Value)
-	fmt.Println(c.keyList.Tail.Value)
-	fmt.Println(c.keyList.Tail.Previous.Value)
-	fmt.Println(c.keyList.Tail.Previous.Previous.Value)
-	fmt.Printf("c.get(1): %d\n", c.get(1))
-	fmt.Println(c.keyList.Head.Value)
-	fmt.Println(c.keyList.Head.Next.Value)
-	fmt.Println(c.keyList.Head.Next.Next.Value)
-	fmt.Println(c.keyList.Tail.Value)
-	fmt.Println(c.keyList.Tail.Previous.Value)
-	fmt.Println(c.keyList.Tail.Previous.Previous.Value)
-	fmt.Println(c.keyMap)
-}
-*/
