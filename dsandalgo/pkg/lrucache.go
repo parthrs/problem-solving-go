@@ -1,4 +1,4 @@
-package lrucache
+package pkg
 
 import (
 	dll "github.com/parthrs/LetsGo/dsandalgo/pkg"

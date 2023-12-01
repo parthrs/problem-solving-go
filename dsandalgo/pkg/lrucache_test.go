@@ -1,4 +1,4 @@
-package lrucache
+package pkg
 
 import (
 	"reflect"
