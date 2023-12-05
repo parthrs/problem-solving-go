@@ -1,6 +1,8 @@
-CC=go
 
-test: twopointer pkg arrays stringrelated
+test: misc twopointer pkg arrays stringrelated
+
+misc:
+	go test ./misc -count=1 -cover -v
 
 twopointer:
 	go test ./dsandalgo/twopointer -count=1 -cover -v
