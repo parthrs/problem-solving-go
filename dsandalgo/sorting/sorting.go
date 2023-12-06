@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package sorting
 
 func BubbleSort(a []int) []int {
 	/*
@@ -106,10 +104,4 @@ func MergeSort(a []int) []int {
 	}
 
 	return result
-}
-
-func main() {
-	fmt.Println(MergeSort([]int{8, 3, 2, 1, 5, 7, 7, 0}))
-	fmt.Println(MergeSort([]int{0, 1, 2, 3, 5, 7, 7, 8}))
-	fmt.Println(MergeSort([]int{7, 9, 100, 11, -5, -7, 0, 10}))
 }

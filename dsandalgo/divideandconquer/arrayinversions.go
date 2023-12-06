@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package divideandconquer
 
 // An inversion in the array is when the array index of two locations in the array are opposite of the values.
 // [0, 2, 1]  --> Inversion is (2,1)
@@ -44,8 +42,4 @@ func DiscoverInversions(a []int) ([]int, int) {
 		}
 	}
 	return output, (x + y + z)
-}
-
-func main() {
-	fmt.Println(DiscoverInversions([]int{6, 5, 4, 3, 2, 1}))
 }
