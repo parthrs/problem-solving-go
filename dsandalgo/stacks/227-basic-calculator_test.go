@@ -8,12 +8,14 @@ func TestCalculate(t *testing.T) {
 		"3*2+2",
 		" 3/2 ",
 		" 3+5 / 2 ",
+		"42",
 	}
 	expected := []int{
 		7,
 		8,
 		1,
 		5,
+		42,
 	}
 
 	for i := range expressions {

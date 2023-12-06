@@ -82,7 +82,7 @@ func Calculate(s string) (res int) { // This logic has us doing running total in
 	for index, ch := range s {
 		isDigit := ch >= '0' && ch <= '9'
 		if isDigit {
-			num = int(ch - '0')
+			num = num*10 + int(ch-'0') // num *10 is to account for multiple digits of num, int(ch-'0') uses rune val for 0 as base
 		}
 		if !isDigit && ch != ' ' || index == len(s)-1 { // if we use else here, we'd have to bend over backwards to tackle the last character
 			switch preSign {
