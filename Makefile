@@ -1,5 +1,5 @@
 
-test: misc twopointer pkg arrays stringrelated
+test: twopointer pkg arrays stringrelated stacks misc
 
 misc:
 	go test ./misc -count=1 -cover -v
@@ -15,3 +15,6 @@ arrays:
 
 stringrelated:
 	go test ./dsandalgo/stringrelated -count=1 -cover -v
+
+stacks:
+	go test ./dsandalgo/stacks -count=1 -cover -v
