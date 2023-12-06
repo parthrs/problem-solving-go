@@ -15,6 +15,20 @@ Implement the LRUCache class:
 The functions get and put must each run in O(1) average time complexity.
 */
 
+// Using this over DoublyLinkedNode from pkg to pacify
+// VSCode from complaining "undeclared name"
+type Node[T comparable] struct {
+	Previous *Node[T]
+	Next     *Node[T]
+	Value    T
+}
+
+func NewNode[T comparable](val T) *Node[T] {
+	return &Node[T]{
+		Value: val,
+	}
+}
+
 // This implementation maintains two datastructures to get O(1)
 // complexity; A map of (key, pointers -> DLL node) and a doubly
 // linked list as a priority queue.
@@ -27,75 +41,81 @@ The functions get and put must each run in O(1) average time complexity.
 // Finally because of this detail, we must maintain our own
 // Doubly linked list and not rely on the standard implementation.
 type LRUCache struct {
-	KeyToNodePtrMap map[int]*DoublyLinkedNode[[2]int]
-	Head            *DoublyLinkedNode[[2]int] // We manage our own DLL with head/tail ptrs
-	Tail            *DoublyLinkedNode[[2]int]
+	KeyToNodePtrMap map[int]*Node[[2]int]
+	Head            *Node[[2]int] // We manage our own DLL with head/tail ptrs
+	Tail            *Node[[2]int]
 	Capacity        int
 }
 
-func NewLRUCache(size int) *LRUCache {
+func NewLRUCache(capacity int) *LRUCache {
 	return &LRUCache{
-		KeyToNodePtrMap: map[int]*DoublyLinkedNode[[2]int]{},
-		Capacity:        size,
+		KeyToNodePtrMap: map[int]*Node[[2]int]{},
+		Capacity:        capacity,
 	}
+}
+
+// moveNodeToTail is only called when there are more
+// than two elements in the cache
+func (c *LRUCache) moveNodeToTail(node *Node[[2]int]) {
+	// Node already at tail or only one elem in cache
+	if node.Next == nil || len(c.KeyToNodePtrMap) == 1 {
+		return
+	}
+	// Node at Head
+	if node.Previous == nil {
+		c.Head = node.Next
+	} else { // Node in the middle
+		node.Previous.Next = node.Next
+	}
+	node.Next.Previous = node.Previous
+	c.Tail.Next = node
+	node.Previous = c.Tail
+	node.Next = nil
+	c.Tail = node
+}
+
+// removeNodeAtHead is only called if cache
+// is non-empty
+func (c *LRUCache) removeNodeAtHead() {
+	if c.Head.Next != nil {
+		c.Head.Next.Previous = c.Head.Previous
+	}
+	c.Head = c.Head.Next
+}
+
+func (c *LRUCache) addNodeToTail(node *Node[[2]int]) {
+	if len(c.KeyToNodePtrMap) == 0 {
+		c.Head = node
+	} else {
+		c.Tail.Next = node
+		node.Previous = c.Tail
+	}
+	c.Tail = node
 }
 
 // Add elements to the tail
 // We have to also manage the add logic
 // for the doubly linked list
 func (c *LRUCache) put(k int, v int) {
-	// If cache is full,
-	//   Update map
-	//   Remove node at head
-	if len(c.KeyToNodePtrMap) == c.Capacity {
-		delete(c.KeyToNodePtrMap, c.Head.Value[0])
-		c.Head = c.Head.Next
-		c.Head.Previous = nil
-	}
-
-	// Add node at tail
-	//   Create node
-	//   If cache empty, update head
-	//   else update tail.next
-	//   Add node at tail
-	n := NewDoublyLinkedNode[[2]int]([2]int{k, v})
-	if c.Tail == nil {
-		c.Head = n
+	if node, found := c.KeyToNodePtrMap[k]; found {
+		node.Value = [2]int{k, v}
+		c.moveNodeToTail(node)
 	} else {
-		c.Tail.Next = n
+		if len(c.KeyToNodePtrMap) == c.Capacity {
+			headKey := c.Head.Value[0]
+			c.removeNodeAtHead()
+			delete(c.KeyToNodePtrMap, headKey)
+		}
+		node := NewNode[[2]int]([2]int{k, v})
+		c.addNodeToTail(node)
+		c.KeyToNodePtrMap[k] = node
 	}
-	n.Previous = c.Tail
-	c.Tail = n
-	c.KeyToNodePtrMap[k] = n
 }
 
 func (c *LRUCache) get(k int) int {
-	// If key does not exist return -1
-	if _, found := c.KeyToNodePtrMap[k]; !found {
-		return -1
-	}
-	// If key exists and not on top, move it to top
-	//   Remove node from current position
-	//   Add it to tail
-	node := c.KeyToNodePtrMap[k]
-	// Node is already at the tail
-	if node.Next == nil {
+	if node, found := c.KeyToNodePtrMap[k]; found {
+		c.moveNodeToTail(node)
 		return node.Value[1]
 	}
-	// Node is at head
-	if node.Previous == nil {
-		c.Head = node.Next
-		node.Next.Previous = nil
-		node.Next = nil
-		c.Tail.Next = node
-		node.Previous = node
-		c.Tail = node
-	} else { // In the middle
-		node.Previous.Next = node.Next
-		node.Next.Previous = node.Previous
-		node.Next = nil
-		node.Previous = c.Tail
-		c.Tail = node
-	}
-	return c.Tail.Value[1]
+	return -1
 }
