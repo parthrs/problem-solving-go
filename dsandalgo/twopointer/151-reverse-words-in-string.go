@@ -13,3 +13,16 @@ func Reverse(s string) string {
 	}
 	return strings.Join(ss, " ")
 }
+
+// func Reverse(s string) string {
+// words := strings.Fields(s)
+// n := len(words) - 1
+// for n >= 0 {
+//     result += words[n]
+//     if n >= 1 {
+//       result += " "
+//     }
+//     n--
+// }
+// return
+// }
