@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/parthrs/LetsGo/basics"
-	"github.com/parthrs/LetsGo/dsandalgo/pkg"
-	"github.com/parthrs/LetsGo/misc"
 )
 
 /*
@@ -39,4 +38,7 @@ func main() {
 	misc.PrintHotFuzz()
 	misc.ParseLog()
 	misc.PrintEmployeeHeirarchy("A123456789", 0)
+	// The "outer func" SomeSetup runs first, then the "inner func" it returns runs after time.Sleep
+	defer basics.SomeSetup()()
+	time.Sleep(3 * time.Second)
 }
