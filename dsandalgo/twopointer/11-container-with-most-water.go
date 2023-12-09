@@ -19,34 +19,41 @@ as it would only reduce the potential width without guaranteeing a taller line t
 updating the maximum water area, and moving the shorter line pointer towards the other pointer until the two pointers meet,
 at which point we've considered every possible container and the maximum stored water has been found.
 */
+
+// maxArea calculates the area by comparing
+// two heights, and moving the lesser one,
+// to the next one, in search of a new high
 func MaxArea(height []int) (area int) {
-	i, j := 0, len(height)-1
-	for i < j {
-		area = max(getArea(height, i, j), area)
-		if height[i] < height[j] {
-			i++
+	left := 0
+	right := len(height) - 1
+	for left < right {
+		area = getMax(area, (right-left)*getMin(height[left], height[right]))
+		if height[left] < height[right] {
+			left++
 		} else {
-			j--
+			right--
 		}
 	}
-	return area
+	return
 }
 
-func min(i, j int) int {
+// Need min to take the lesser
+// height of two lines to calculate
+// volume
+func getMin(i, j int) int {
 	if i < j {
 		return i
+	} else {
+		return j
 	}
-	return j
 }
 
-func max(i, j int) int {
+// Needed to maintain a running
+// max area on each iteration
+func getMax(i, j int) int {
 	if i > j {
 		return i
+	} else {
+		return j
 	}
-	return j
-}
-
-func getArea(height []int, i, j int) int {
-	// Assuming j > i
-	return (j - i) * min(height[i], height[j])
 }
