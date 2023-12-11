@@ -1,7 +1,7 @@
 package linkedlist
 
 import (
-	"github.com/parthrs/LetsGo/dsandalgo/pkg"
+	. "github.com/parthrs/LetsGo/dsandalgo/pkg"
 )
 
 /**
@@ -12,10 +12,20 @@ import (
  * }
  */
 
-type ListNode pkg.SinglyNode[int]
+/*
+The brute force way is to reach the end, set head
+to that and then traverse back. But that ends up us
+traversing twice.
 
-func reverseList(head *ListNode) *ListNode {
-	var prev *ListNode
+Instead traverse once, when you are on a node,
+take a "backup" of the next pointer. Then set its next
+to the prev pointer (which starts with nil). Set the prev
+pointer to head (current node, so set prev = current node)
+and finally set head to the next value (backed up).
+*/
+
+func reverseList(head *SinglyNode) *SinglyNode {
+	var prev *SinglyNode
 	for head != nil { // Start with catching empty Lists
 		head.Next, prev, head = prev, head, head.Next
 		// t := head.Next
