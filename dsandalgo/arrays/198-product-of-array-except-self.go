@@ -8,7 +8,7 @@ func ProductExceptSelf(nums []int) []int {
 	i := 1
 	runningProduct := nums[0]
 	for i < len(nums) {
-		products[i] = runningProduct
+		products[i] = runningProduct // "Whats the product of elems to your left?"
 		runningProduct *= nums[i]
 		i++
 	}
@@ -16,10 +16,10 @@ func ProductExceptSelf(nums []int) []int {
 	// Calculate products from R to L
 	// Use the same existing array of earlier
 	// products
-	i = len(nums) - 2
+	i = len(nums) - 2 // Skipping the last elem, same as L to R starting i=1
 	runningProduct = nums[len(nums)-1]
 	for i >= 1 {
-		products[i] *= runningProduct
+		products[i] *= runningProduct // "Whats the product of elems to your right, I'll take that and multiply with array elem"
 		runningProduct *= nums[i]
 		i--
 	}
