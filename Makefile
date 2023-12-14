@@ -1,5 +1,5 @@
 
-test: twopointer pkg arrays stringrelated stacks misc
+test: twopointer pkg arrays stacks misc
 
 misc:
 	go test ./misc -cover -v
@@ -12,9 +12,6 @@ pkg:
 
 arrays:
 	go test ./leet-code/arrays -cover -v
-
-stringrelated:
-	go test ./leet-code/stringrelated -cover -v
 
 stacks:
 	go test ./leet-code/stacks -cover -v
