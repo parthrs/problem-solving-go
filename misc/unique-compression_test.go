@@ -1,4 +1,4 @@
-package stringrelated
+package misc
 
 import (
 	"reflect"
