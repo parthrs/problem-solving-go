@@ -1,4 +1,4 @@
-module github.com/parthrs/LetsGo
+module github.com/parthrs/problem-solving-go
 
 go 1.19
 

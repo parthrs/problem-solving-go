@@ -1,7 +1,7 @@
 package linkedlist
 
 import (
-	. "github.com/parthrs/LetsGo/dsandalgo/pkg"
+	. "github.com/parthrs/problem-solving-go/pkg"
 )
 
 /**
@@ -12,7 +12,7 @@ import (
  * }
  */
 
-func middleNode(head *SinglyNode) *SinglyNode {
+func MiddleNode(head *SinglyNode[int]) *SinglyNode[int] {
 	slow, fast := head, head
 	for fast != nil && fast.Next != nil {
 		slow, fast = slow.Next, fast.Next.Next

@@ -1,7 +1,7 @@
 package linkedlist
 
 import (
-	. "github.com/parthrs/LetsGo/dsandalgo/pkg"
+	. "github.com/parthrs/problem-solving-go/pkg"
 )
 
 /*
@@ -28,11 +28,14 @@ There are some smart approaches that:
 this way, slow points to one node behind of middle.
 */
 
-func DeleteMiddle(head *SinglyNode) *SinglyNode {
+func DeleteMiddle(head *SinglyNode[int]) *SinglyNode[int] {
 	if head.Next == nil {
 		return nil
 	}
-	prev := &SinglyNode{0, head}
+	prev := &SinglyNode[int]{
+		Value: 0,
+		Next:  head,
+	}
 	dummyHead, slow, fast := head, head, head
 	for fast != nil && fast.Next != nil {
 		prev = prev.Next

@@ -1,7 +1,7 @@
 package linkedlist
 
 import (
-	. "github.com/parthrs/LetsGo/dsandalgo/pkg"
+	. "github.com/parthrs/problem-solving-go/pkg"
 )
 
 /**
@@ -24,8 +24,8 @@ pointer to head (current node, so set prev = current node)
 and finally set head to the next value (backed up).
 */
 
-func reverseList(head *SinglyNode) *SinglyNode {
-	var prev *SinglyNode
+func ReverseList(head *SinglyNode[int]) *SinglyNode[int] {
+	var prev *SinglyNode[int]
 	for head != nil { // Start with catching empty Lists
 		head.Next, prev, head = prev, head, head.Next
 		// t := head.Next
