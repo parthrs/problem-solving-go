@@ -1,0 +1,9 @@
+Message Vehicle
+string -> "Hello"
+float -> 5.6
+float -> 4
+int -> 0
+
+Message Vector64
+string -> "Right"
+float -> 2.2

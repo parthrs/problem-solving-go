@@ -28,4 +28,9 @@ func main() {
 	fmt.Printf("=========================\n\n")
 	misc.PrintEmployeeHeirarchy("A123456789", 0)
 	fmt.Printf("=========================\n\n")
+	p := misc.NewParser()
+	_ = p.ParseInput("misc/parsing-rpc-like-messages.txt")
+	fmt.Println(p.GetSize("Vehicle"))
+	fmt.Println(p.GetSize("Vector64"))
+	fmt.Println(p.GetSize("float"))
 }
