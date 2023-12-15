@@ -1,5 +1,7 @@
 package hashmap
 
+import "sort"
+
 func CloseStrings(word1 string, word2 string) bool {
 	// Ensure words have same lengths
 	if len(word1) != len(word2) {
@@ -30,21 +32,22 @@ func CloseStrings(word1 string, word2 string) bool {
 		}
 	}
 
-	countMap1 := map[int]rune{}
-	countMap2 := map[int]rune{}
-
-	for k, v := range characMap1 {
-		countMap1[v] = k
+	count1 := []int{}
+	count2 := []int{}
+	for _, v := range characMap1 {
+		count1 = append(count1, v)
 	}
-	for k, v := range characMap2 {
-		countMap2[v] = k
+	for _, v := range characMap2 {
+		count2 = append(count2, v)
 	}
 
-	for k, _ := range countMap1 {
-		if _, found := countMap2[k]; !found {
+	sort.Ints(count1)
+	sort.Ints(count2)
+
+	for i := range count1 {
+		if count1[i] != count2[i] {
 			return false
 		}
-		delete(countMap2, k)
 	}
-	return len(countMap2) == 0
+	return true
 }
