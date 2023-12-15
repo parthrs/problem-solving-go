@@ -12,52 +12,91 @@ Here are the ways a deque could be implemented:
 	 - Random access by index is O(n)
 */
 
-type Deque struct {
-	length   int32
-	li       []int32
-	capacity int32
+/*
+Implementing Deque using a Doubly linked list
+  - O(1) push and pop both ends
+  - PushFront and PopFront are at Tail
+  - PushBack and PopBack are at Head
+*/
+type Deque[T comparable] struct {
+	Cap  int
+	Len  int
+	Head *DoublyLinkedNode[T]
+	Tail *DoublyLinkedNode[T]
 }
 
-func NewDeque(size int32) Deque {
-	return Deque{
-		length:   0,
-		li:       []int32{},
-		capacity: size,
+func NewDeque[T comparable](size int) *Deque[T] {
+	return &Deque[T]{
+		Cap:  size,
+		Len:  0,
+		Head: nil,
+		Tail: nil,
 	}
 }
 
-func (d *Deque) appendLeft(k int32) {
-	if d.length < d.capacity {
-		d.li = append([]int32{k}, d.li...)
-		d.length += 1
+func (d *Deque[T]) PushFront(val T) bool {
+	if d.Len == d.Cap {
+		return false
 	}
+	n := NewDoublyLinkedNode[T](val)
+	if d.Head == nil {
+		d.Tail = n
+	} else {
+		d.Head.Previous = n
+	}
+	n.Next = d.Head
+	d.Head = n
+
+	d.Len++
+	return true
 }
 
-func (d *Deque) appendRight(k int32) {
-	if d.length < d.capacity {
-		d.li = append(d.li, []int32{k}...)
-		d.length += 1
+func (d *Deque[T]) PushBack(val T) bool {
+	if d.Len == d.Cap {
+		return false
 	}
+	n := NewDoublyLinkedNode[T](val)
+	if d.Tail == nil {
+		d.Head = n
+	} else {
+		d.Tail.Next = n
+	}
+	n.Previous = d.Tail
+	d.Tail = n
+	d.Len++
+	return true
 }
 
-func (d *Deque) popLeft() int32 {
-	var retVal int32 = -1
-	if d.length > 0 {
-		retVal = d.li[0]
-		d.li = d.li[1:]
-		d.length -= 1
-		return retVal
+func (d *Deque[T]) PopFront() (retVal T, success bool) {
+	if d.Len == 0 {
+		success = false
+		return
 	}
-	return retVal
+	n := d.Head
+	if d.Head.Next == nil {
+		d.Tail = nil
+	} else {
+		d.Head.Next.Previous = nil
+	}
+	d.Head = d.Head.Next
+	n.Next = nil
+	d.Len--
+	return n.Value, true
 }
 
-func (d *Deque) popRight() int32 {
-	var retVal int32 = -1
-	if d.length > 0 {
-		retVal = d.li[d.length-1] // note the use of length - 1 since d.length gives the len, but really 'points' to the next location
-		d.li = d.li[:d.length-1]
-		d.length -= 1
-		return retVal
+func (d *Deque[T]) PopBack() (retVal T, success bool) {
+	if d.Len == 0 {
+		success = false
+		return
 	}
-	return retVal
+	n := d.Tail
+	if d.Tail.Previous == nil {
+		d.Head = nil
+	} else {
+		d.Tail.Previous.Next = nil
+	}
+	d.Tail = d.Tail.Previous
+	n.Previous = nil
+	d.Len--
+	return n.Value, true
 }
