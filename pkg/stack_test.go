@@ -15,7 +15,7 @@ func TestNewStack(t *testing.T) {
 
 	// Push 5 elems 4 through 0 in order
 	// Check for return status (of push)
-	for i := 4; i >= 0; i++ {
+	for i := 4; i >= 0; i-- {
 		status := s.Push(i)
 		if !status {
 			t.Errorf("Expected true while push(%d), got %v", i, status)
@@ -44,5 +44,11 @@ func TestNewStack(t *testing.T) {
 	}
 	if length := s.Len; length != 3 {
 		t.Errorf("Len expected to be 3, got %v", length)
+	}
+	s.Pop() // 2
+	s.Pop() // 3
+	s.Pop() // 4
+	if length := s.Len; length != 0 {
+		t.Errorf("Len expected to be 0, got %v", length)
 	}
 }
