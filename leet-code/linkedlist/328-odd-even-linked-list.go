@@ -17,10 +17,16 @@ last even elem (i.e. potential candidate), we move it up.
 */
 func OddEvenList(head *pkg.SinglyNode[int]) *pkg.SinglyNode[int] {
 	// Empty or single node list
-	if head == nil || head.Next == nil {
+	if head == nil {
 		return head
 	}
 
+	// Pointers that will point to the end of
+	// odd set of elems and even set of elems
+	//
+	// The elem after the end of even set, will
+	// be picked up and placed at the end of the
+	// odd set. Till the even end points to nil
 	oddEnd, evenEnd := head, head.Next
 	for evenEnd != nil && evenEnd.Next != nil {
 		curr := evenEnd.Next
