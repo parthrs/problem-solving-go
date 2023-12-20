@@ -71,8 +71,10 @@ func (l *DoublyLinkedList[T]) RemoveNodeTail() {
 		if l.Tail.Previous == nil {
 			l.Head, l.Tail = nil, nil
 		} else {
+			n := l.Tail
 			l.Tail = l.Tail.Previous
 			l.Tail.Next = nil
+			n.Previous = nil
 		}
 	}
 }
