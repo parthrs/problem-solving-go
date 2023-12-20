@@ -9,7 +9,7 @@ For other numbers just print the numbers.
 import "fmt"
 
 func PrintHotFuzz() {
-	for i := 1; i <= 100; i++ {
+	for i := 1; i <= 25; i++ {
 		fmt.Printf("%d ", i)
 		if (i%3 == 0) && (i%6 == 0) {
 			fmt.Printf("HotFuzz")
