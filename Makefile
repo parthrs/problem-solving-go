@@ -1,5 +1,6 @@
 test: misc pkg lc
 
+.PHONY: misc pkg lc
 misc:
 	go test ./misc -cover -count=1 -v
 
