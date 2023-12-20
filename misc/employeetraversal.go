@@ -8,11 +8,8 @@ import (
 	"time"
 )
 
-// To get the server running - "pip install flask && python3 app.py"
-// *I'm to lazy to re-write this in Go atm (I wrote the flask app a while back)
-
 /*
-assume there is a REST API available at http://www.employee.com/api for accessing employee information The employee information endpoint is /employee/<id> Each employee record you retrieve will be a JSON object with the following keys:
+assume there is a REST API available at http://www.employee.com/employeedb/api/employee/ for accessing employee information The employee information endpoint is /employee/<id> Each employee record you retrieve will be a JSON object with the following keys:
 
     name refers to a String that contains the employee’s first and last name
     title refers to a String that contains the employee’s job title
