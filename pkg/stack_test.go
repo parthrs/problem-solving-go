@@ -36,11 +36,11 @@ func TestNewStack(t *testing.T) {
 
 	// Pop two elems and check return values
 	// Check length after two pop operations
-	if val := s.Pop(); val != 0 {
-		t.Errorf("Expected val to be 0, got %d", val)
+	if val, success := s.Pop(); val != 0 || !success {
+		t.Errorf("Expected val to be 0 and success to be true, got %d %v", val, success)
 	}
-	if val := s.Pop(); val != 1 {
-		t.Errorf("Expected val to be 1, got %d", val)
+	if val, success := s.Pop(); val != 1 || !success {
+		t.Errorf("Expected val to be 1 and success to be true, got %d %v", val, success)
 	}
 	if length := s.Len; length != 3 {
 		t.Errorf("Len expected to be 3, got %v", length)

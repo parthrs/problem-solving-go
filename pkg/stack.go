@@ -39,10 +39,14 @@ func (s *Stack[T]) Push(elem T) bool {
 	return true
 }
 
-func (s *Stack[T]) Pop() (retVal T) {
+// Returning bool avoids ambiguity of default retVal
+// For e.g. for Stack[int] default retVal will be 0,
+// but there could be an actual elem 0
+func (s *Stack[T]) Pop() (retVal T, success bool) {
 	if s.Head == nil {
 		return // return the default value for T
 	}
+	success = true
 	n := s.Head
 	s.Head = s.Head.Next
 	// Remove any reference this node is making to other nodes
