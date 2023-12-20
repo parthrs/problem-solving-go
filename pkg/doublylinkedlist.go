@@ -60,8 +60,10 @@ func (l *DoublyLinkedList[T]) RemoveNodeHead() {
 		if l.Head.Next == nil {
 			l.Tail, l.Head = nil, nil
 		} else {
+			n := l.Head
 			l.Head = l.Head.Next
 			l.Head.Previous = nil
+			n.Next = nil
 		}
 	}
 }
