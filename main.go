@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"time"
 
 	"github.com/parthrs/problem-solving-go/leet-code/linkedlist"
 	"github.com/parthrs/problem-solving-go/misc"
@@ -27,7 +29,19 @@ func main() {
 	fmt.Printf("=========================\n\n")
 	misc.ParseLog()
 	fmt.Printf("=========================\n\n")
-	misc.PrintEmployeeHeirarchy("A123456789", 0)
+	serv := misc.NewHTTPServer()
+	ch := make(chan error, 1)
+	serv.Start(ch)
+	if err := <-ch; err != nil {
+		fmt.Printf("Error starting the server %v, skipping the next steps..\n", err)
+	} else {
+		fmt.Printf("Server up, making request..\n")
+		time.Sleep(time.Millisecond * 300)
+		misc.PrintEmployeeHeirarchy("A123456789", 0)
+		fmt.Printf("Done, stopping server..\n")
+		serv.Stop(context.Background())
+		time.Sleep(time.Millisecond * 300)
+	}
 	fmt.Printf("=========================\n\n")
 	p := misc.NewParser()
 	_ = p.ParseInput("misc/parsing-rpc-like-messages.txt")

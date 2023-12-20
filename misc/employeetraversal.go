@@ -42,7 +42,7 @@ func getEmployeeInfo(id string) (employee *Employee, err error) {
 	client := http.Client{
 		Timeout: 30 * time.Second,
 	}
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://127.0.0.1:37899/linkedin/api/employee/%s", id), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://127.0.0.1:37899/employeedb/api/employee/%s", id), nil)
 	if err != nil {
 		return
 	}
@@ -62,7 +62,11 @@ func getEmployeeInfo(id string) (employee *Employee, err error) {
 }
 
 func PrintEmployeeHeirarchy(id string, numSpace int) {
-	e, _ := getEmployeeInfo(id)
+	e, err := getEmployeeInfo(id)
+	if err != nil {
+		fmt.Printf("Error while getting employee info: %v\n", err)
+		return
+	}
 	spaceChars := ""
 	for i := 0; i < numSpace; i++ {
 		spaceChars += " "
