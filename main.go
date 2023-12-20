@@ -14,9 +14,7 @@ import (
 Go solutions to problems and puzzles.
 */
 
-func main() {
-	fmt.Printf("problem-solving-go 🚀\n\n\n")
-
+func Sets() {
 	s := pkg.NewSetDS[[2]int]()
 	fmt.Println(s.Contains([2]int{1, 2}))
 	s.Add([2]int{1, 2})
@@ -24,11 +22,9 @@ func main() {
 	fmt.Println(s.Contains([2]int{23, 44}))
 	s.Add([2]int{23, 44})
 	fmt.Println(s.Contains([2]int{23, 44}))
-	fmt.Printf("=========================\n\n")
-	misc.PrintHotFuzz()
-	fmt.Printf("=========================\n\n")
-	misc.ParseLog()
-	fmt.Printf("=========================\n\n")
+}
+
+func EmployeeTraversal() {
 	serv := misc.NewHTTPServer()
 	ch := make(chan error, 1)
 	serv.Start(ch)
@@ -42,13 +38,17 @@ func main() {
 		serv.Stop(context.Background())
 		time.Sleep(time.Millisecond * 300)
 	}
-	fmt.Printf("=========================\n\n")
+}
+
+func RpcLikeParser() {
 	p := misc.NewParser()
 	_ = p.ParseInput("misc/parsing-rpc-like-messages.txt")
 	fmt.Println(p.GetSize("Vehicle"))
 	fmt.Println(p.GetSize("Vector64"))
 	fmt.Println(p.GetSize("float"))
-	fmt.Printf("=========================\n\n")
+}
+
+func SinglyLinkedListTruthTable() {
 	// Create a new Singly list
 	ll := pkg.NewSinglyList[int]()
 	// Add elems
@@ -82,5 +82,31 @@ func main() {
 	linkedlist.PrintMiddleAndLastNodes[int](n, n)
 	fmt.Printf("even len, slow=-1; fast=head\n")
 	linkedlist.PrintMiddleAndLastNodes[int](n, ll.Head)
+}
+
+func Fibonacci(n int) {
+	f := misc.PrintFibonacci()
+	for n > 0 {
+		f()
+		n--
+	}
+}
+
+func main() {
+	fmt.Printf("problem-solving-go 🚀\n\n\n")
+
+	// Sets()
+	// fmt.Printf("=========================\n\n")
+	// misc.PrintHotFuzz()
+	// fmt.Printf("=========================\n\n")
+	// misc.ParseLog()
+	// fmt.Printf("=========================\n\n")
+	// EmployeeTraversal()
+	// fmt.Printf("=========================\n\n")
+	// RpcLikeParser()
+	// fmt.Printf("=========================\n\n")
+	// SinglyLinkedListTruthTable()
+	// fmt.Printf("=========================\n\n")
+	Fibonacci(7)
 	fmt.Printf("=========================\n\n")
 }
