@@ -109,4 +109,13 @@ func main() {
 	// fmt.Printf("=========================\n\n")
 	Fibonacci(7)
 	fmt.Printf("=========================\n\n")
+	fmt.Printf("Fastest bipedal dinosaurs (https://www.mydinosaurs.com/blog/top-10-fastest-dinosaurs-ever-lived-earth/)\n")
+	misc.PrintBipedalDinos(false)
+	fmt.Printf("=========================\n\n")
+	fortuneTeller := misc.NewFortunes("misc/fortune.txt")
+	fortuneTeller.TellMeAFortune()
+	fortuneTeller.TellMeAFortune()
+	fortuneTeller.TellMeAFortune()
+	fortuneTeller.TellMeAFortune()
+	fmt.Printf("=========================\n\n")
 }
