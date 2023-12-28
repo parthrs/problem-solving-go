@@ -77,4 +77,32 @@ func TestSnapshotMap(t *testing.T) {
 	if result != 10 {
 		t.Errorf("For s.Get(a, 3): Expected 10, got %v", result)
 	}
+	s.TakeSnapshot() // 4
+	s.Put("d", 599)
+	s.Put("k", 111)
+	s.Put("o", 55)
+	s.TakeSnapshot() // 5
+	s.Put("c", 699)
+	s.TakeSnapshot() // 6
+	result, err = s.Get("a", 6)
+	if err == nil {
+		t.Errorf("Expected error response for s.Get(a, 6), got: %v", err)
+	}
+	if result != 0 {
+		t.Errorf("For s.Get(a, 6): Expected 0, got %v", result)
+	}
+	result, err = s.Get("a", 4)
+	if err == nil {
+		t.Errorf("Expected error response for s.Get(a, 4), got: %v", err)
+	}
+	if result != 0 {
+		t.Errorf("For s.Get(a, 4): Expected 0, got %v", result)
+	}
+	result, err = s.Get("a", 3)
+	if err != nil {
+		t.Errorf("Expected non-error response for s.Get(a, 3), got: %v", err)
+	}
+	if result != 10 {
+		t.Errorf("For s.Get(a, 3): Expected 0, got %v", result)
+	}
 }
