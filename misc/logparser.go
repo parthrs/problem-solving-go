@@ -17,26 +17,35 @@ Dec  3 00:02,1
 Dec  3 00:03,6
 */
 
+/*
+This implementation uses a map to keep track of
+the count of messages seen in the log file for every
+minute entry seen
+
+The key in this map is the min timestamp in string form
+and the value is a int counter
+*/
+
 func ParseLog() {
-	fd, err := os.Open("misc/logparser.log") // Get a file descriptor
+	fd, err := os.Open("misc/logparser.log")
 	if err != nil {
 		fmt.Printf("Error opening file %v. Exiting..", err)
 		return
 	}
 	defer fd.Close()
 
-	reader := bufio.NewScanner(fd) // Create a reader around the fd
-	reader.Split(bufio.ScanLines)  // Set the reader to split on new lines
+	reader := bufio.NewScanner(fd)
+	reader.Split(bufio.ScanLines)
 
-	// Dec  3 00:03:05
+	// Dec  3 00:03, i.e. up to min accuracy
 	logMap := map[string]int{}
 
-	for reader.Scan() { // Scan returns true till EOL
-		text := reader.Text()            // Text fetches text, if scan gave true
-		dateTime := strings.Fields(text) // Fields is split but for whitespaces
-		minute := strings.Split(dateTime[2], ":")
-		ts := strings.Join(dateTime[:2], " ") + " " + strings.Join(minute[:2], ":") // Join returns strings and Go supports a "+"
-		logMap[ts]++
+	for reader.Scan() {
+		text := reader.Text()
+		dateTime := strings.Fields(text)                                            // Split the entire line with spaces
+		minute := strings.Split(dateTime[2], ":")                                   // Parse the timestamp
+		ts := strings.Join(dateTime[:2], " ") + " " + strings.Join(minute[:2], ":") // Combine month day and timestamp (min accuracy)
+		logMap[ts]++                                                                // e.g. Dec 3 00:02 or Dec 3 23:59
 	}
 	fmt.Println("minute,number_of_messages")
 	for key, val := range logMap {
