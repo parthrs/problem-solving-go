@@ -26,14 +26,26 @@ only 1% of the values change between snapshots
 */
 
 /*
-Implementation:
-In addition to our map, we also have an additional map,
-which as its keys stores snapshot IDs and value a delta
-at that snapshot from the previous one.
+Core Idea:
+- Maintain a "diff" of keys that are deleted and added
+- At each snapshot, store this diff in a separate map
+- When retreval is done with snapId 0, means current map is polled
+- When snapId is provided, since we are storing only diffs (from previous),
+  we traverse back till:
+	- either we find that key was deleted
+	- or we find that value for the key in an older snapshot
+	In summary - we start with the specified snapshot ID, and traverse back first
+	checking the deleted and then the added part. If either is found we return either
+	key error or value respectively.
 
-To lookup a value at each snapshot we traverse back
-snapshots (since we only store the delta i.e. "changes" at
-any given snapshot).
+Implementation:
+In addition to our map, which stores the current data, we also have an additional map
+which as its keys stores snapshot IDs and value a delta at that snapshot from the previous one.
+
+To lookup a value at each snapshot we traverse back snapshots (since we only store the delta i.e.
+"changes" at any given snapshot).
+
+To support deletes
 */
 
 // T is comparable, comparable implements == and != only
