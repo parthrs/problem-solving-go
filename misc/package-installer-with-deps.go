@@ -36,6 +36,13 @@ func NewPackage(n string, d []*Package) *Package {
 	}
 }
 
+var (
+	InstallationStatus = make(map[string]string)
+	InstallationURL    = "http://127.0.0.1:37899/addpackage"
+)
+
+// InstallApiCall makes a GET request to the server with query
+// parameters - package name and a server/node name
 func InstallApiCall(packageName, nodeName string) error {
 	c := http.Client{
 		Timeout: time.Second * 10,
@@ -58,11 +65,9 @@ func InstallApiCall(packageName, nodeName string) error {
 	}
 }
 
-var (
-	InstallationStatus = make(map[string]string)
-	InstallationURL    = "http://127.0.0.1:37899/addpackage"
-)
-
+// InstallPackage recursively calls self to install a package
+// and its dependencies. If any of the deps fail to install
+// the installation of the entire package is abandoned.
 func InstallPackage(p *Package, nodeName string) (err error) {
 	if _, lookup := InstallationStatus[p.Name]; lookup {
 		log.Info().Str("Package", p.Name).Msg("Package already installed. Returning success..")
