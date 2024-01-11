@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/parthrs/problem-solving-go/leet-code/linkedlist"
@@ -35,6 +36,53 @@ func EmployeeTraversal() {
 		time.Sleep(time.Millisecond * 300)
 		misc.PrintEmployeeHeirarchy("A123456789", 0)
 		fmt.Printf("Done, stopping server..\n")
+		serv.Stop(context.Background())
+		time.Sleep(time.Millisecond * 300)
+	}
+}
+
+func PackageInstaller() {
+	serv := misc.NewPackageServer()
+	err := serv.Start()
+	time.Sleep(time.Millisecond * 300)
+	if err != nil {
+		fmt.Printf("Unable to start package server: %v\n", err)
+		fmt.Printf("Skipping..")
+	} else {
+		//time.Sleep(60 * time.Second)
+		req, err := http.NewRequest("GET", "http://127.0.0.1:37899/addnode/serverA", nil)
+		if err != nil {
+			fmt.Printf("Unable to create request to add node on package server: %v\n", err)
+			return
+		}
+		client := http.Client{
+			Timeout: time.Second * 5,
+		}
+		resp, err := client.Do(req)
+		if err != nil {
+			fmt.Printf("Error making request to package server: %v\n", err)
+			return
+		}
+		if resp.StatusCode != 200 {
+			fmt.Printf("Non-ok response from package server: %v\n", resp.Status)
+			return
+		}
+
+		g := misc.NewPackage("G", []*misc.Package{})
+		f := misc.NewPackage("F", []*misc.Package{})
+		i := misc.NewPackage("I", []*misc.Package{})
+		d := misc.NewPackage("D", []*misc.Package{})
+
+		c := misc.NewPackage("C", []*misc.Package{g, f, i, d})
+		e := misc.NewPackage("E", []*misc.Package{c})
+
+		h := misc.NewPackage("H", []*misc.Package{e, d})
+		b := misc.NewPackage("B", []*misc.Package{h})
+
+		misc.InstallPackage(b, "serverA")
+		fmt.Println("Sleeping, please verify install...") // curl http://127.0.0.1:37899/getpackages/serverA
+		time.Sleep(time.Second * 120)
+		fmt.Println("Done, shutting down server..")
 		serv.Stop(context.Background())
 		time.Sleep(time.Millisecond * 300)
 	}
@@ -95,18 +143,18 @@ func Fibonacci(n int) {
 func main() {
 	fmt.Printf("problem-solving-go 🚀\n\n\n")
 
-	// Sets()
-	// fmt.Printf("=========================\n\n")
-	// misc.PrintHotFuzz()
-	// fmt.Printf("=========================\n\n")
-	// misc.ParseLog()
-	// fmt.Printf("=========================\n\n")
-	// EmployeeTraversal()
-	// fmt.Printf("=========================\n\n")
-	// RpcLikeParser()
-	// fmt.Printf("=========================\n\n")
-	// SinglyLinkedListTruthTable()
-	// fmt.Printf("=========================\n\n")
+	Sets()
+	fmt.Printf("=========================\n\n")
+	misc.PrintHotFuzz()
+	fmt.Printf("=========================\n\n")
+	misc.ParseLog()
+	fmt.Printf("=========================\n\n")
+	EmployeeTraversal()
+	fmt.Printf("=========================\n\n")
+	RpcLikeParser()
+	fmt.Printf("=========================\n\n")
+	SinglyLinkedListTruthTable()
+	fmt.Printf("=========================\n\n")
 	Fibonacci(7)
 	fmt.Printf("=========================\n\n")
 	fmt.Printf("Fastest bipedal dinosaurs (https://www.mydinosaurs.com/blog/top-10-fastest-dinosaurs-ever-lived-earth/)\n")
@@ -117,5 +165,7 @@ func main() {
 	fortuneTeller.TellMeAFortune()
 	fortuneTeller.TellMeAFortune()
 	fortuneTeller.TellMeAFortune()
+	fmt.Printf("=========================\n\n")
+	PackageInstaller()
 	fmt.Printf("=========================\n\n")
 }
