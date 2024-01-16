@@ -1,8 +1,6 @@
 package stacks
 
 import (
-	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -18,61 +16,11 @@ All the integers in the expression are non-negative integers in the range [0, 2^
 The answer is guaranteed to fit in a 32-bit integer.
 */
 
-/*
-Note: The funcs with suffix 'ValientAttempt' are an incorrect approach
-      that I came up with, kept here as a humility kick
-*/
-
-func ValientAttemptSolveExpression(number int, expression string) int {
-	operator := string(expression[0])
-	rhs, _ := strconv.Atoi(string(expression[1]))
-	switch operator {
-	case "+":
-		return number + rhs
-	case "-":
-		return number - rhs
-	case "*":
-		return number * rhs
-	case "/":
-		return number / rhs
-	default:
-		return 0
-	}
-}
-
-func ValientAttemptCalculate(s string) int {
-	operationOrderMap := map[string]int{
-		"*": 1,
-		"/": 1,
-		"+": 2,
-		"-": 2,
-	}
-	s = strings.ReplaceAll(s, " ", "")
-	executionMap := map[int][]string{}
-
-	//fmt.Println(s)
-	for i := 1; i < len(s); i++ {
-		prevLetter := string(s[i-1])
-		letter := string(s[i])
-		if _, found := operationOrderMap[letter]; !found {
-			order := operationOrderMap[prevLetter]
-			executionMap[order] = append(executionMap[order], fmt.Sprintf("%s%s", prevLetter, letter))
-		}
-	}
-
-	runningResult, _ := strconv.Atoi(string(s[0]))
-
-	for _, expression := range executionMap[1] {
-		runningResult = ValientAttemptSolveExpression(runningResult, expression)
-	}
-
-	for _, expression := range executionMap[2] {
-		runningResult = ValientAttemptSolveExpression(runningResult, expression)
-	}
-
-	return runningResult
-}
-
+// Push addition and subtractions to stack; i.e. <sign><num> -> stack e.g. -2
+// Solve multiplication/div operations with top of stack, push result to stack
+// Finally loop over stack to +- the results into final result
+// Since we only push to stack (the presign and number) when we encounter
+// an operand, the 'index == len(s) - 1' ensures the last num gets handled.
 func Calculate(s string) (res int) { // This logic has us doing running total in the end, so initialize res here helps
 	num := 0
 	preSign := '+' // Assuming first num in expression never negative
