@@ -24,7 +24,7 @@ Output: [2,1,3,2,4,0,0,0]
 func MoveZerosToEnd(nums []int) []int {
 	index := 0
 	for finder := range nums {
-		if nums[finder] != 0 {
+		if nums[finder] != 0 { // If nums[finder] == 0, index stays there
 			//if index != finder { // Avoids unnecessary swap if both point to same elem
 			nums[index], nums[finder] = nums[finder], nums[index]
 			//}
