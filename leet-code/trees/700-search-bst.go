@@ -8,12 +8,7 @@ type TreeNode struct {
 
 func SearchBST(root *TreeNode, val int) *TreeNode {
 	// edge case
-	if root == nil {
-		return nil
-	}
-
-	// base case
-	if root.Val == val {
+	if root == nil || root.Val == val {
 		return root
 	}
 
@@ -24,9 +19,7 @@ func SearchBST(root *TreeNode, val int) *TreeNode {
 	// case section) on the recursive call
 	if val < root.Val {
 		return SearchBST(root.Left, val)
-	} else if val > root.Val {
-		return SearchBST(root.Right, val)
 	} else {
-		return nil
+		return SearchBST(root.Right, val)
 	}
 }
