@@ -1,11 +1,5 @@
 package trees
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 func SearchBST(root *TreeNode, val int) *TreeNode {
 	// edge case
 	if root == nil || root.Val == val {
