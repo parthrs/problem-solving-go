@@ -140,6 +140,34 @@ func Fibonacci(n int) {
 	}
 }
 
+func PrintDeckOfCardMethods() {
+	d := misc.NewDeck()
+	fmt.Println("========OG deck========")
+	d.Print()
+	fmt.Println("========OG deck========")
+	c := d.GetCards(5)
+	fmt.Println("========get 5 cards========")
+	for _, card := range c {
+		fmt.Println(card.Card)
+	}
+	fmt.Println("========get 5 cards========")
+	fmt.Println("========after get cards deck========")
+	d.Print()
+	fmt.Println("========after get cards deck========")
+	d.PutBackCard(c[0])
+	fmt.Println("========after put back Ace of Clud card========")
+	d.Print()
+	fmt.Println("========after put back Ace of Clud card========")
+	d.Shuffle()
+	fmt.Println("========after shuffle deck========")
+	d.Print()
+	fmt.Println("========after shuffle deck========")
+	d.Sort()
+	fmt.Println("========after sort deck========")
+	d.Print()
+	fmt.Println("========after sort deck========")
+}
+
 func main() {
 	fmt.Printf("problem-solving-go 🚀\n\n\n")
 
@@ -168,4 +196,5 @@ func main() {
 	fmt.Printf("=========================\n\n")
 	PackageInstaller()
 	fmt.Printf("=========================\n\n")
+	PrintDeckOfCardMethods()
 }
